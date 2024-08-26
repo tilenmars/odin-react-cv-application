@@ -29,8 +29,7 @@ return(
 }
 
 />
-{console.log(savedJobData)}
-{savedJobData.length > 0 ? <Card title={savedJobData[0][0].companyName} dataField1={savedJobData[0][0].startDate} dataField2={savedJobData[0][0].endDate}/> : ""}
+{savedJobData.length > 0 ? savedJobData.map((data) => <Card title={data[0].companyName} dataField1={data.startDate} dataField2={data.endDate}/>) : console.log("wrong")}
   </>
 )
 }
