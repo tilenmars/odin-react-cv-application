@@ -12,7 +12,7 @@ return(
     <br />
     <label htmlFor="phone">Phone number: </label>
     <input type="tel" name="phone" id="phone" />
-    <input type="text" defaultValue="register" name="type" id="phone"/>
+    <input type="hidden" defaultValue="register" name="type" id="phone"/>
     <input type="submit" value="submit" />
 </form>)
 
