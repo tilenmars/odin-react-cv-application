@@ -20,10 +20,10 @@ return(
   <>
   {savedRegisterData.length < 1 ? 
     <Register onSubmit={function(event){
-      setSavedRegisterData(saveData(event));}}/> : <Card title={savedRegisterData[0].name + " " + savedRegisterData[0].surname} text="blabla" startDate="danes" endDate="jutri" type="krneki"/>
+      {console.log(savedRegisterData)}
+      setSavedRegisterData(saveData(event));}}/> : <Card title={savedRegisterData[0].name + " " + savedRegisterData[0].surname} text="" dataField1={savedRegisterData[0].phone} dataField2={savedRegisterData[0].email} type={savedRegisterData[0].type}/>
   }
     <br/>
-    {console.log(savedRegisterData)}
     <NewJob onSubmit={function(event){
     setSavedJobData(saveData(event));
   }}/>
