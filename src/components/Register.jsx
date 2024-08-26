@@ -1,17 +1,6 @@
-const savedData = new Array;
-const saveData = (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    console.log(formData);
-    const obj = Object.fromEntries(formData);
-    savedData.push(obj);
-    console.log(savedData);
-}
-
-
-function Register(){
+const Register = props => {
 return(
-<form onSubmit={saveData}>
+    <form onSubmit={props.onSubmit}>
     <label htmlFor="name">Name: </label>
     <input type="text" name="name" id="name" />
     <br />
