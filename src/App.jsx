@@ -13,20 +13,24 @@ const App = () => {
   const saveData = (event) => {
       event.preventDefault();
       const formData = new FormData(event.target);
-      obj = [Object.fromEntries(formData)];
+      obj = [...obj, Object.fromEntries(formData)];
       return obj;
   }
 return(
   <>
   {savedRegisterData.length < 1 ? 
     <Register onSubmit={function(event){
-      {console.log(savedRegisterData)}
       setSavedRegisterData(saveData(event));}}/> : <Card title={savedRegisterData[0].name + " " + savedRegisterData[0].surname} text="" dataField1={savedRegisterData[0].phone} dataField2={savedRegisterData[0].email} type={savedRegisterData[0].type}/>
   }
     <br/>
     <NewJob onSubmit={function(event){
-    setSavedJobData(saveData(event));
-  }}/>
+    setSavedJobData([...savedJobData, saveData(event)]);
+  }
+}
+
+/>
+{console.log(savedJobData)}
+{savedJobData.length > 0 ? <Card title={savedJobData[0][0].companyName} dataField1={savedJobData[0][0].startDate} dataField2={savedJobData[0][0].endDate}/> : ""}
   </>
 )
 }

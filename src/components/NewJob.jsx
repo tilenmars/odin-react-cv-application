@@ -11,6 +11,11 @@ const saveData = (event) => {
 const NewJob = props =>{
     return(
     <form onSubmit={props.onSubmit}>
+        <label htmlFor="jobOrEducation">Entering a job or education? </label>
+        <select name="jobOrEducation" id="jobOrEducation">Education or job?
+            <option value="Job">Job</option>
+            <option value="Education">Education</option>
+        </select><br/>
         <label htmlFor="companyName">Company name: </label>
         <input type="text" name="companyName" id="companyName" />
         <br />
