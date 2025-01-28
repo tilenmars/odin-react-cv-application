@@ -16,13 +16,13 @@ const App = () => {
 
   const updateValues = (newValues) => {
     setDefaultValues((prevValues) => ({ ...prevValues, ...newValues }));
-    console.log(defaultValues);
   };
 
   const saveData = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     obj = [...obj, Object.fromEntries(formData)];
+    console.log(obj[0]);
     if (
       savedJobData.length > 0 &&
       savedJobData[savedJobData.length - 1] &&
@@ -87,20 +87,19 @@ const App = () => {
               dataField1={data[0].startDate}
               dataField2={data[0].endDate}
               updateValues={updateValues}
-              onClick={() => {
+              onClickDelete={() => {
                 const updatedJobData = savedJobData.filter(
                   (job) => job[0].ID !== data[0].ID
                 );
                 setSavedJobData(updatedJobData);
               }}
               onClickEdit={() => {
-                updateValues({ companyName: "bla" });
-                console.log(defaultValues);
+                setDefaultValues(data[0]);
                 // setDefaultValues(savedJobData.find(x => x.ID ===id))
               }}
             />
           ))
-        : console.log("No jobs added")}
+        : ""}
     </>
   );
 };

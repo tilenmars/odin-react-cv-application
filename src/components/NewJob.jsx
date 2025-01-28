@@ -2,10 +2,8 @@ const savedData = new Array();
 const saveData = (event) => {
   event.preventDefault();
   const formData = new FormData(event.target);
-  console.log(formData);
   const obj = Object.fromEntries(formData);
   savedData.push(obj);
-  console.log(savedData);
 };
 
 // if prop defaultValues is undefined -> create
@@ -14,7 +12,6 @@ const saveData = (event) => {
 // also clear form after submit
 const NewJob = (props) => {
   const companyName = props.companyName;
-  console.table(companyName);
   return (
     <form onSubmit={props.onSubmit}>
       <label htmlFor="jobOrEducation">Entering a job or education? </label>
