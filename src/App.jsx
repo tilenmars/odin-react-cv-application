@@ -17,29 +17,41 @@ const App = () => {
   const updateValues = (newValues) => {
     setDefaultValues((prevValues) => ({ ...prevValues, ...newValues }));
   };
-
+  console.log(savedJobData);
   const saveData = (event) => {
     event.preventDefault();
+    let tempObject = [];
     const formData = new FormData(event.target);
-    obj = [...obj, Object.fromEntries(formData)];
-    console.log(obj[0]);
-    if (
+    let formDataObject = Object.fromEntries(formData);
+    obj = [...obj, formDataObject];
+    formDataObject.ID = parseInt(formDataObject.ID);
+    if (obj[0].ID || obj[0].ID === 0) {
+      let index = savedJobData.findIndex((x) => x.ID === event.ID);
+      tempObject = savedJobData;
+      tempObject[formDataObject.ID] = formDataObject;
+      console.log(savedJobData);
+      console.log(tempObject);
+      obj[0] = tempObject;
+    } else if (
       savedJobData.length > 0 &&
       savedJobData[savedJobData.length - 1] &&
-      savedJobData[savedJobData.length - 1][0] &&
-      savedJobData[savedJobData.length - 1][0].ID !== undefined
+      savedJobData[savedJobData.length - 1] &&
+      savedJobData[savedJobData.length - 1].ID !== undefined
     ) {
-      obj[0]["ID"] = savedJobData[savedJobData.length - 1][0].ID + 1;
+      obj[0]["ID"] = savedJobData[savedJobData.length - 1].ID + 1;
     } else {
       obj[0]["ID"] = 0;
     }
     setDefaultValues({
+      ID: undefined,
       companyName: "",
       companyPosition: "",
       startDate: new Date(),
       endDate: new Date(),
     });
-    return obj;
+    if (obj) {
+      return obj[0];
+    } else return obj;
   };
 
   return (
@@ -74,7 +86,17 @@ const App = () => {
         endDate={defaultValues.endDate}
         updateValues={updateValues}
         onSubmit={(event) => {
-          setSavedJobData([...savedJobData, saveData(event)]);
+          let formData = new FormData(event.target);
+          formData = Object.fromEntries(formData);
+          formData.ID = parseInt(formData.ID);
+          if (formData.ID || formData.ID === 0) {
+            // let tempObject = savedJobData;
+            // // tempObject = Object.assign(tempObject[formData.ID], formData);
+            // tempObject[formData.ID] = formData;
+            setSavedJobData(saveData(event));
+          } else {
+            setSavedJobData([...savedJobData, saveData(event)]);
+          }
         }}
       />
 
@@ -83,18 +105,18 @@ const App = () => {
         ? savedJobData.map((data, index) => (
             <Card
               key={index}
-              title={data[0].companyName}
-              dataField1={data[0].startDate}
-              dataField2={data[0].endDate}
+              title={data.companyName}
+              dataField1={data.startDate}
+              dataField2={data.endDate}
               updateValues={updateValues}
               onClickDelete={() => {
                 const updatedJobData = savedJobData.filter(
-                  (job) => job[0].ID !== data[0].ID
+                  (job) => job.ID !== data.ID
                 );
                 setSavedJobData(updatedJobData);
               }}
               onClickEdit={() => {
-                setDefaultValues(data[0]);
+                setDefaultValues(data);
                 // setDefaultValues(savedJobData.find(x => x.ID ===id))
               }}
             />

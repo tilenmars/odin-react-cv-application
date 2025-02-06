@@ -14,6 +14,7 @@ const NewJob = (props) => {
   const companyName = props.companyName;
   return (
     <form onSubmit={props.onSubmit}>
+      <input type="hidden" name="ID" value={props.ID} />
       <label htmlFor="jobOrEducation">Entering a job or education? </label>
       <select name="jobOrEducation" id="jobOrEducation">
         Education or job?
